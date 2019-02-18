@@ -6,5 +6,5 @@
 开发/运行环境：windows/vs2017  C语言
 
 版本：
-	ClearMineGame1.0/ClearMineGame1.1/ClearMineGame1.3
+	ClearMineGame1.0 / ClearMineGame1.1 / ClearMineGame1.2
       
