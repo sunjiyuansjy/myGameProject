@@ -1,7 +1,10 @@
 #include"ClearMineGame.h"
-/*
-*基本版：基本实现了扫雷游戏的功能
-*/
+
+/**
+*    ClearMineGame1.1 扩展了功能：第一次下子，不炸死。
+*
+**/
+
 
 //初始化棋盘
 void InitBoard(char board[ROWS][COLS], int rows, int cols, char set) {
@@ -11,11 +14,12 @@ void InitBoard(char board[ROWS][COLS], int rows, int cols, char set) {
 void DisplayBoard(char board[ROW][COL], int row, int col) {
 	//遍历赋值输出
 	for (int i = 0; i <= row; i++) {
-		printf("%d ", i);
+		printf("%d ", i);//列号
 	}
 	printf("\n");
 	for (int i = 1; i <= row; i++) {
-		printf("%d ", i);
+		
+		printf("%d ", i);//行号
 		for (int j = 1; j <= col; j++) {
 			printf("%c ", board[i][j]);
 		}
@@ -29,7 +33,7 @@ int GetRandomIndex(int start, int end) {
 }
 //布置雷
 void SetMine(char board[ROW][COL], int row, int col) {
-	// 在随机坐标放置雷
+	 //在随机坐标放置雷
 	int count = DEFAULT_MINES;
 	srand((unsigned long)time(NULL));
 	while (count) {
@@ -42,6 +46,40 @@ void SetMine(char board[ROW][COL], int row, int col) {
 		}
 	}
 }
+//扩展：新手保护模式一次
+void SafeFindMine(char mine[ROW][COL], char show[ROW][COL], int row, int col) {
+	int x = 0, y = 0; int x1 = 0, y1 = 0;//x1和y1为首次排查的坐标
+		printf("输入要排查的坐标:\n");
+		scanf("%d %d", &x1, &y1);
+		char ch = 0;
+		while ((ch = getchar()) != '\n' && ch != EOF) {
+
+		}
+		if (x1>= 1 && x1 <= row&&y1 >= 1 && y1 <= col)
+		{
+			if (mine[x1][y1] == '1')
+			{
+				printf("新手保护一次\n");
+				mine[x1][y1] ='0';
+				DisplayBoard(mine, row, col);
+				//挪动雷的位置
+				if (mine[x][y] == '0'&&(x1!=x)&&(y1!=y))//该位置不是雷才能布置
+				{
+					mine[x][y] = '1';	
+				}
+			}
+			else {
+				int count = GetMineCount(mine, x1, y1);
+				show[x1][y1] = count + '0';
+				DisplayBoard(show, row, col);
+			}
+		}
+		else {
+			printf("输入坐标非法，请重新输入\n");
+
+		}
+	
+}
 //清除雷
 void FindMine(char mine[ROW][COL], char show[ROW][COL], int row, int col) {
 	int x = 0, y = 0;
@@ -52,7 +90,7 @@ void FindMine(char mine[ROW][COL], char show[ROW][COL], int row, int col) {
 		while ((ch = getchar()) != '\n' && ch != EOF) {
 
 		}
-		if (x >= 1 && x <= row&&y >= 1 && y <= col)
+		if (x >= 1 && x <= row && y >= 1 && y <= col)
 		{
 			if (mine[x][y] == '1') {
 				printf("遗憾，你被炸死了\n");
@@ -83,7 +121,7 @@ int GetMineCount(char mine[ROW][COL], int x, int y) {
 		mine[x][y + 1] +
 		mine[x + 1][y - 1] +
 		mine[x + 1][y] +
-		mine[x + 1][y + 1] - 8 * '0';
+		mine[x + 1][y + 1] -8 * '0';
 }
 void game() {
 	char mine[ROWS][COLS] = { 0 };
@@ -91,6 +129,9 @@ void game() {
 	InitBoard(mine, ROWS, COLS, '0');
 	InitBoard(show, ROWS, COLS, '*');
 	SetMine(mine, ROW, COL);
+	DisplayBoard(mine, ROW, COL);
+	DisplayBoard(show, ROW, COL);
+	SafeFindMine(mine,show,ROW, COL);
 	DisplayBoard(mine, ROW, COL);
 	DisplayBoard(show, ROW, COL);
 	FindMine(mine, show, ROW, COL);
