@@ -18,7 +18,7 @@ int GetRandomIndex(int start, int end);
 void SetMine(char board[ROW][COL], int row, int col);
 int GetMineCount(char mine[ROW][COL], int x, int y);
 void FindMine(char mine[ROW][COL], char show[ROW][COL], int row, int col);
-//void OpenMine(char mine[ROW][COL], char show[ROW][COL], int row, int col);
-//void SafeFindMine(char mine[ROW][COL], char show[ROW][COL], int row, int col);
+void OpenMine(char mine[ROW][COL], char show[ROW][COL], int row, int col,int x,int y);
+void SafeFindMine(char mine[ROW][COL], char show[ROW][COL], int row, int col);
 
 

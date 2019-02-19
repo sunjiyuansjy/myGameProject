@@ -1,4 +1,4 @@
-#include"ClearMineGAME.h"
+#include"ClearMineGame.h"
 
 void menu() {
 	printf("*******************É¨À×ÓÎÏ·*****************\n");
@@ -19,7 +19,6 @@ int main() {
 		case 2:
 			exit(0);
 			break;
-		//case 3:game1(); break;
 		default:printf("ÊäÈë´íÎó£¬ÇëÖØÊä\n"); break;
 		}
 	} while (input);
